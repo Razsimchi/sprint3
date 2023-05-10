@@ -11,7 +11,7 @@ _createMails()
 export const mailService = {
     query,
     get,
-    getNextMailId
+    getNextMailId,
 }
 
 function query() {
