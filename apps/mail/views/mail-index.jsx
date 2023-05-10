@@ -1,4 +1,5 @@
 import { MailCompose } from "../cmps/mail-compose.jsx";
+import { MailFilter } from "../cmps/mail-filter.jsx";
 import { MailList } from "../cmps/mail-list.jsx";
 import { mailService } from "../services/mail.service.js";
 
@@ -27,7 +28,10 @@ export function MailIndex() {
     }
 
     function loadMails(){
-        mailService.query().then(setMails)
+        mailService.query(critera).then(setMails)
+    }
+    function onSetCritera(critera) {
+        setCritera(prevCritera => ({ ...prevCritera, ...critera }))
     }
 
    
@@ -35,6 +39,7 @@ export function MailIndex() {
         <div>
             <h1>mail app</h1>
             <div className="mail-status-filter">
+             <MailFilter onSetCritera={onSetCritera} critera={critera}/>   
             <button onClick = {toggleIsNewMsg}>New Email</button>
 
             </div>

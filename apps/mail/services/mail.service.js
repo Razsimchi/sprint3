@@ -19,10 +19,14 @@ export const mailService = {
     getDefaultCriteria
 }
 
-function query() {
+function query(critera) {
     return storageService.query(MAIL_KEY)
-        .then(cars => {
-            return cars
+        .then(mails => {
+            if (critera.txt){
+                const regExp = new RegExp(critera.txt, 'i')
+                mails = mails.filter(mail => regExp.test(mail.subject))
+            }
+            return mails
         })
 }
 function remove(mailId) {
