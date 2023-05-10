@@ -12,7 +12,7 @@ export function MailIndex() {
 
     useEffect(()=> {
         loadMails()
-    },[])
+    },[isNewMsg,critera])
 
     function toggleIsNewMsg(){
         setIsNewMsg((prevIsNewMsg)=>!prevIsNewMsg)

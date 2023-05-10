@@ -7,7 +7,7 @@ export function MailPreview({ mail, onRemoveMail }) {
         return utilService.getDateFormat(mail.sentAt)
 
     }
-    `/mail/${mail.id}`
+    // `/mail/${mail.id}`
     return (
 
         <tr onClick={() => navigate(`/mail/${mail.id}`)} className='mail-preview' >

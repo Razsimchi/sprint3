@@ -51,19 +51,3 @@ export function MailDetails() {
         </section>
     )
 }
-<<<<<<< HEAD
-function loadNextMailId() {
-    mailService.getNextMailId(mailId)
-        .then(setNextMailId)
-}
-// function onBack() {
-//     navigate('/mail')
-// }
-// if (!mail) return <div>loading...</div>
-// return (
-//     <section className="mail-details">
-        
-//     </section>
-// )
-=======
->>>>>>> f4c3fb796bd418cc9a6118f33c86fd6e2326affe
