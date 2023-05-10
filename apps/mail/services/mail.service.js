@@ -11,7 +11,12 @@ _createMails()
 export const mailService = {
     query,
     get,
-    getNextMailId
+    getNextMailId,
+    getPrevMailId,
+    remove,
+    getEmptyMail,
+    save,
+    getDefaultCriteria
 }
 
 function query() {
@@ -19,6 +24,9 @@ function query() {
         .then(cars => {
             return cars
         })
+}
+function remove(mailId) {
+    return storageService.remove(MAIL_KEY, mailId)
 }
 function get(mailId) {
     return storageService.get(MAIL_KEY, mailId)
@@ -31,6 +39,38 @@ function getNextMailId(mailId) {
             return mails[mailIdx + 1].id
         })
 }
+function getPrevMailId(mailId) {
+    return storageService.query(MAIL_KEY)
+        .then((mails) => {
+            let mailIdx = mails.findIndex(mail => mail.id === mailId)
+            if(mailIdx === 0) mailIdx = mails.length
+            return mails[mailIdx - 1].id
+        })
+}
+function getEmptyMail(){
+    return {
+        id: utilService.makeId(),
+        subject: '',
+        body: '',
+        isRead: false,
+        sentAt: Date.now(),
+        removedAt: null,
+        from: 'user@appsus.com',
+        to: ''
+    }
+}
+function save(mail) {
+        return storageService.post(MAIL_KEY, mail)
+}
+function getDefaultCriteria(){
+    return {
+        status: '',
+         txt: '',
+         isRead: null,
+         isStared: null 
+    }
+}
+
 function _createMails() {
     let mails = utilService.loadFromStorage(MAIL_KEY)
     if (!mails || !mails.length) {
