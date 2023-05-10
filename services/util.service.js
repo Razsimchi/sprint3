@@ -6,6 +6,10 @@ export const utilService = {
     padNum,
     getDayName,
     getMonthName,
+    saveToStorage,
+    loadFromStorage,
+    getDayOfMonth,
+    getDateFormat
 }
 
 function makeId(length = 6) {
@@ -52,11 +56,28 @@ function getDayName(date, locale) {
     date = new Date(date)
     return date.toLocaleDateString(locale, { weekday: 'long' })
 }
+function getDayOfMonth(date) {
+    date = new Date(date)
+    return date.getDate().toString().padStart(2, '0')
+}
 
 
 function getMonthName(date) {
+    date = new Date(date)
     const monthNames = ["January", "February", "March", "April", "May", "June",
         "July", "August", "September", "October", "November", "December"
     ]
     return monthNames[date.getMonth()]
+} function saveToStorage(key, val) {
+    localStorage.setItem(key, JSON.stringify(val))
+}
+
+function loadFromStorage(key) {
+    var val = localStorage.getItem(key)
+    return JSON.parse(val)
+}
+function getDateFormat(date) {
+    date = new Date(date)
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric' }
+    return date.toLocaleDateString('en-GB', options)
 }
