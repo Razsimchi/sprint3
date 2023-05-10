@@ -1,29 +1,22 @@
 const { Link } = ReactRouterDOM
-
-
+import { NoteTxt } from "./note-txt.jsx"
+import { NoteImg } from "./note-img.jsx"
 export function NotePreview({ note }) {
-    const{info,type,style}=note
-    
+    const {id, info, type, style } = note
+
+   
     console.log(note);
-if(type==='NoteTxt'){
-    return (
-        <article style={style} className="note-preview">
-            <h2>{info.txt}</h2>
-        </article>  
-    )
-}
-if(type==='NoteImg'){
-    return (
-        <article style={style} className="note-preview">
-            <h2>{info.title}</h2>
-        </article>
-    )
-}
-if(type==='NoteTodos'){
-    return (
-        <article style={style} className="note-preview">
-            <h2>{info.title}</h2>
-        </article>
-    )
-}
+    if (type === 'NoteTxt') {
+        return <NoteTxt note={note}/>
+    }
+    if (type === 'NoteImg') {
+        return <NoteImg note={note}/>
+    }
+    if (type === 'NoteTodos') {
+        return (
+            <article style={style} className="note-preview">
+                <h2>{info.title}</h2>
+            </article>
+        )
+    }
 }

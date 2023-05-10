@@ -29,9 +29,9 @@ function loadNextMailId() {
 // function onBack() {
 //     navigate('/mail')
 // }
-if (!mail) return <div>loading...</div>
-return (
-    <section className="mail-details">
+// if (!mail) return <div>loading...</div>
+// return (
+//     <section className="mail-details">
         
-    </section>
-)
+//     </section>
+// )

@@ -15,13 +15,11 @@ export function NoteIndex() {
         noteService.query().then(notes => setNotes(notes))
     }
 
-    function onEditNote(noteId){
-        noteService.get(noteId).then(setNotes)
-    }
+  
     return (
         <section className="note-index">
             <NoteEdit />
-            <NoteList notes={notes} onEditNote={onEditNote} />
+            <NoteList notes={notes}/>
         </section>
     )
 }
