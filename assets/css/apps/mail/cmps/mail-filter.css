@@ -1,0 +1,13 @@
+.mail-status-filter{
+    grid-row: 2;
+ }
+ .btn{
+    display: block;
+    width: 30px;
+    height: 30px;
+ }
+ .mail-filter{
+    gap: 10px;
+    /* justify-items: center; */
+ }
+ 

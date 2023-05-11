@@ -14,11 +14,11 @@ export function MailPreview({ mail, onRemoveMail }) {
                 event.stopPropagation()
                 onRemoveMail(mail.id)
             }}> 
-            <img src="../../../assets/icons/icons8-trash-24.png" alt="" /></td>
-
+            <img className="btn" src="../../../assets/icons/icons8-star-24.png"  /></td>
             <td>{mail.from}</td>
             <td>{mail.subject}-{mail.body}</td>
-            <td>{getDate()}</td>
+            <td className="date">{getDate()}</td>
+            <td><img className="btn preview-icon"  src="../../../assets/icons/icons8-trash-24.png" alt="" /></td>
         </tr>
 
     )

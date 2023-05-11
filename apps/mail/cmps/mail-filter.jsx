@@ -22,19 +22,19 @@ const navigate = useNavigate()
         // }
         const value =  target.value
         setCriteraToEdit(prevCritera => ({ ...prevCritera, [field]: value }))
-        navigate(`/mail/${value}`)
+        navigate(`/mail`)
     }
     console.log(criteraToEdit)
     
 
     return (
-        <section className = 'mail-filter' >
+        <section className = 'mail-filter ' >
             <form onSubmit = {onSubmitFilter} ><label htmlFor="txt">Search:</label>
                 <input onChange={handleChange} name="txt" id="txt" type="search" placeholder="By Subject" /></form>
 
-            <button name ="status" value ="inbox" onClick = {handleChange}>Inbox</button>    
-            <button name = "status" value ="sent" onClick = {handleChange}>Sent</button>    
-            <button name = "status" value ="trash" onClick = {handleChange}>Deleted</button>    
+            <img src = "../../../assets/icons/icons8-inbox-24.png" className="btn btn-inbox" name ="status" value ="inbox" onClick = {handleChange}></img>    
+            <img src = "../../../assets/icons/icons8-sent-32.png" className="btn btn-sent" name = "status" value ="sent" onClick = {handleChange}></img>    
+            <img src = "../../../assets/icons/icons8-trash-24.png" className="btn btn-trash" name = "status" value ="trash" onClick = {handleChange}></img>   
             {/* <button name = "isRead"  onClick = {handleChange}>Reade</button>     */}
         </section>
     )
