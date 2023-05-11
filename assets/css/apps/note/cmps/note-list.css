@@ -1,5 +1,21 @@
  /* note list */
 
-.line-through{
-    text-decoration: line-through;
+.note-list{
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+}
+
+.note-list>li{
+    border: solid #c6bfbf;
+    border-radius: 20px;
+    text-align: center;
+    padding: 15px;
+}
+
+.note-todos-list{
+    text-align: end;
+}
+.note-todos img{
+    width: 28px;
+    height: 28px;
 }

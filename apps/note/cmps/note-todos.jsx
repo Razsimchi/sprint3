@@ -1,7 +1,7 @@
 import { noteService } from "../services/note.service.js"
 const { useState } = React
 
-export function NoteTodos({ note }) {
+export function NoteTodos({ note, onRemoveNote }) {
     const { info } = note
     const [isEditable, setIsEditable] = useState(false)
     const [isChecked, setIsChecked] = useState(info.todos.map((todo) => todo.isChecked))
@@ -28,26 +28,32 @@ export function NoteTodos({ note }) {
     }
 
     return (
-        <article className="note-todos">
-            <h2 contentEditable={isEditable} onBlur={handleContentChange}>
-                {info.title}
-            </h2>
-            <ul className="note-todos-list">
-                <label htmlFor="todos"></label>
-                {todos.map((todo, idx) => (
-                    <li
-                        id="todos"
-                        style={{ textDecoration: isChecked[idx] ? 'line-through' : 'none' }}
-                        onChange={() => handleCheckboxChange(idx)}
-                        key={idx}
-                    >
-                        {todo.txt}
-                        <input type="checkbox" value={todo.txt} />
-                    </li>
-                ))}
-            </ul>
-        </article>
+        <li className="flex column space-between" key={note.id}>
+
+            <article className="note-todos">
+                <h2 contentEditable={isEditable} onBlur={handleContentChange}>
+                    {info.title}
+                </h2>
+                <ul className="note-todos-list">
+                    <label htmlFor="todos"></label>
+                    {todos.map((todo, idx) => (
+                        <li
+                            id="todos"
+                            style={{ textDecoration: isChecked[idx] ? 'line-through' : 'none' }}
+                            onChange={() => handleCheckboxChange(idx)}
+                            key={idx}
+                        >
+                            {todo.txt}
+                            <input type="checkbox" value={todo.txt} />
+                        </li>
+                    ))}
+                </ul>
+            <div onClick={() => onRemoveNote(note.id)} >
+                <img src="../assets/icons/icons8-trash-24.png" />
+            </div>
+            </article>
+        </li>
+
     )
 }
-
 

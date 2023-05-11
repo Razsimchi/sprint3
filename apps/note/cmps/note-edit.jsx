@@ -1,4 +1,6 @@
 import { noteService } from "../services/note.service.js"
+import { NoteImg } from "./note-img.jsx"
+import { NoteTodos } from "./note-todos.jsx"
 
 const { useEffect, useState, useRef } = React
 const { useParams, useNavigate } = ReactRouterDOM
@@ -21,48 +23,57 @@ export function NoteEdit() {
             .catch(err => {
                 console.log('Had issued in note edit:', err);
                 navigate('/note')
-                // showErrorMsg('note not found!')
             })
     }
 
     function handleChange({ target }) {
         const field = target.name
         const value = target.type === 'number' ? (+target.value || '') : target.value
-        const newInfo={...noteToEdit.info,[field]: value}
-        setNoteToEdit(prevNote => ({ ...prevNote,info: newInfo }))
+        const newInfo = { ...noteToEdit.info, [field]: value }
+        setNoteToEdit(prevNote => ({ ...prevNote, info: newInfo }))
     }
 
     function onSaveNote(ev) {
         ev.preventDefault()
-        // if (!noteToEdit.info.title) {
-        //     inputRef.current.focus()
-        //     return
-        // }
- 
         noteService.save(noteToEdit)
-        .then(() => {
-                console.log(noteToEdit);
+            .then(() => {
+                setNoteToEdit(noteToEdit)
                 navigate('/note')
             })
             .catch(err => {
                 console.log('Had issued in note edit:', err);
-                // showErrorMsg('Can not save note!')
             })
     }
 
-    const { info } = noteToEdit
-    const {txt}=info
-    return (
-        <section className="note-edit">
-            <h2>{noteToEdit.id ? 'Edit' : 'Add'} note</h2>
+    const { info, type } = noteToEdit
+    const { txt, title, url, todos } = info
 
-            <form onSubmit={onSaveNote} >
-                <label htmlFor="txt"></label>
-                <input ref={inputRef} onChange={handleChange} value={txt} type="text" name="txt" id="txt"/>
-                <button>{noteToEdit.id ? 'Save' : 'Add'}</button>
-            </form>
+    if (type === 'NoteTxt') {
 
-        </section>
-    )
+        return (
+            <section className="note-edit">
+                <h2>{noteToEdit.id ? 'Edit' : 'Add'} note</h2>
+
+                <form onSubmit={onSaveNote} >
+                    <label htmlFor="txt"></label>
+                    <input ref={inputRef} onChange={handleChange} value={txt} type="text" name="txt" id="txt" />
+                    <button>{noteToEdit.id ? 'Save' : 'Add'}</button>
+                </form>
+
+            </section>
+        )
+    }
+    if (type === 'NoteImg') {
+        console.log(noteToEdit);
+        return <NoteImg noteToEdit={noteToEdit} />
+    }
+    if (type === 'NoteTodos') {
+
+        return <NoteTodos noteToEdit={noteToEdit} />
+
+    }
+
 
 }
+
+

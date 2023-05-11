@@ -21,3 +21,7 @@
 .grid {
     display: grid;
 }
+
+li{
+    list-style: none;
+}

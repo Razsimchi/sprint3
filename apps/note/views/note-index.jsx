@@ -7,9 +7,20 @@ const { Link, useSearchParams } = ReactRouterDOM
 
 export function NoteIndex() {
     const [notes, setNotes] = useState([])
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     useEffect(() => {
         loadNotes()
     }, [])
+
+    function openModal() {
+        setIsModalOpen(true);
+    }
+
+    function closeModal() {
+        setIsModalOpen(false);
+    }
+
 
     function loadNotes() {
         noteService.query().then(notes => setNotes(notes))
@@ -25,10 +36,20 @@ export function NoteIndex() {
 
 
     return (
-        <section className="note-index">
-            <Link to="/note/edit">Add Note</Link>
-            {/* <NoteEdit /> */}
-            <NoteList notes={notes} onRemoveNote={onRemoveNote} />
-        </section>
+        <div>
+            {isModalOpen && (
+                <div className="modal-overlay">
+                    <div className="modal">
+                        <NoteEdit closeModal={closeModal} />
+                        <button onClick={closeModal}>Close</button>
+                    </div>
+                </div>
+            )}
+            <section className="note-index">
+                <button onClick={openModal}>Add Note</button>
+                <Link to="/note/edit">Add Note</Link>
+                <NoteList notes={notes} onRemoveNote={onRemoveNote} />
+            </section>
+        </div>
     )
 }
