@@ -10,7 +10,7 @@ export function NoteIndex() {
     useEffect(() => {
         loadNotes()
     }, [])
-    
+
     function loadNotes() {
         noteService.query().then(notes => setNotes(notes))
     }
@@ -23,11 +23,12 @@ export function NoteIndex() {
 
     }
 
-  
+
     return (
         <section className="note-index">
-            <NoteEdit />
-            <NoteList notes={notes} onRemoveNote={onRemoveNote}/>
+            <Link to="/note/edit">Add Note</Link>
+            {/* <NoteEdit /> */}
+            <NoteList notes={notes} onRemoveNote={onRemoveNote} />
         </section>
     )
 }
