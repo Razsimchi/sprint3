@@ -16,6 +16,7 @@ export function App() {
         <section className="app">
             <AppHeader />
             <Routes>
+                
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 {/* <Route path="/note" element={<NoteIndex />} />
