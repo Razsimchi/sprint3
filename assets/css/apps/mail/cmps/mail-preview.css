@@ -1,0 +1,10 @@
+tr:hover .date{
+    display: none;
+}
+
+.preview-icon{
+    display: none;
+}
+tr:hover .preview-icon{
+    display: block   
+}

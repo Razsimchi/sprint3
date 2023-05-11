@@ -30,18 +30,12 @@ function query(critera) {
             if (critera.status === 'sent') {
                 mails = mails.filter(mail => mail.from === loggedinUser.email)
             }
-            if (critera.status === 'trash') {
+            else if (critera.status === 'trash') {
                 mails = mails.filter(mail => mail.removedAt)
             }
-            console.log(mails);
-            if (critera.status === 'inbox') {
+            else if (critera.status === 'inbox') {
                 mails = mails.filter(mail => mail.to === loggedinUser.email)
-                if (critera.isRead) {
-                    mails = mails.filter(mail=> mail.isRead)
-                }
-                else if (!critera.isRead && critera.isRead!==null ){
-                    mails = mails.filter(mail=> !mail.isRead)
-                }
+                mails = mails.filter(mail => !mail.removedAt)
             }
             return mails
         })
@@ -87,12 +81,12 @@ function getEmptyMail() {
 function save(mail) {
     return storageService.post(MAIL_KEY, mail)
 }
-function getDefaultCriteria() {
+function getDefaultCriteria(searchParams = { get: () => { } }) {
     return {
-        status: 'inbox',
-        txt: '',
-        isRead: null,
-        isStared: null
+        status: searchParams.get('status') ||'inbox',
+        txt: searchParams.get('txt') ||'',
+        isRead: searchParams.get('isRead') || 'null',
+        isStared: searchParams.get('isStared') || null
     }
 }
 

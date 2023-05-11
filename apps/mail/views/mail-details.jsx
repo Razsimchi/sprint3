@@ -23,7 +23,7 @@ export function MailDetails() {
             .then(setMail)
             .catch(err => {
                 console.log('Had issued in mail details:', err);
-                navigate('/mail/inbox')
+                navigate('/mail')
             })
     }
     function loadPrevMailId(){
@@ -42,7 +42,7 @@ export function MailDetails() {
             <h4>To: {mail.to}</h4>
             <h3>{mail.subject}</h3>
             <p>{mail.body}</p>
-            <Link to = {`/mail/inbox`}>Back</Link>
+            <Link to = {`/mail`}>Back</Link>
             <Link to = {`/mail/${nextMailId}`}>{'>'}</Link>
             <Link to = {`/mail/${prevMailId}`}>{'<'}</Link>
            

@@ -1,18 +1,21 @@
+const { useEffect, useState } = React
+const { useSearchParams } = ReactRouterDOM
+
 import { MailCompose } from "../cmps/mail-compose.jsx";
 import { MailFilter } from "../cmps/mail-filter.jsx";
 import { MailList } from "../cmps/mail-list.jsx";
 import { mailService } from "../services/mail.service.js";
 
-const { useEffect, useState } = React
-
 export function MailIndex() {
 
-    const [critera, setCritera] = useState(mailService.getDefaultCriteria())
+    const [searchParams, setSearchParams] = useSearchParams()
+    const [critera, setCritera] = useState(mailService.getDefaultCriteria(searchParams))
     const [mails, setMails] = useState([])
     const [isNewMsg, setIsNewMsg] = useState(false)
 
     useEffect(() => {
         loadMails()
+        setSearchParams(critera)
     }, [isNewMsg, critera])
 
     function toggleIsNewMsg() {
@@ -39,11 +42,10 @@ export function MailIndex() {
 
 
     return (
-        <div>
-            <h1>mail app</h1>
+        <div className = "mail-index">
             <div className="mail-status-filter">
+            <img className="btn" src="../../../assets/icons/icons8-edit-file-24.png" onClick={toggleIsNewMsg}/>
                 <MailFilter onSetCritera={onSetCritera} critera={critera} />
-                <button onClick={toggleIsNewMsg}>New Email</button>
 
             </div>
 
