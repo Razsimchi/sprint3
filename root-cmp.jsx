@@ -17,6 +17,7 @@ export function App() {
             <AppHeader />
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 {/* <Route path="/note" element={<NoteIndex />} />
                 <Route path="/note/edit" element={<NoteEdit />} />
