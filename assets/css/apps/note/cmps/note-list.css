@@ -1,2 +1,5 @@
  /* note list */
 
+.line-through{
+    text-decoration: line-through;
+}

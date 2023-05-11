@@ -1,6 +1,7 @@
 const { Link } = ReactRouterDOM
 import { NoteTxt } from "./note-txt.jsx"
 import { NoteImg } from "./note-img.jsx"
+import { NoteTodos } from "./note-todos.jsx"
 export function NotePreview({ note }) {
     const {id, info, type, style } = note
 
@@ -13,10 +14,6 @@ export function NotePreview({ note }) {
         return <NoteImg note={note}/>
     }
     if (type === 'NoteTodos') {
-        return (
-            <article style={style} className="note-preview">
-                <h2>{info.title}</h2>
-            </article>
-        )
+        return <NoteTodos note={note}/>
     }
 }

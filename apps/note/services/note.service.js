@@ -6,11 +6,15 @@ _createNotes()
 export const noteService = {
     query,
     // get,
-    // remove,
+    remove,
     save,
     getEmptyNote,
     // getDefaultFilter,
     // getNextnoteId
+}
+
+function remove(noteId) {
+    return storageService.remove(NOTE_KEY, noteId)
 }
 
 function query() {
@@ -55,10 +59,12 @@ function query() {
                 info: {
                     title: 'Get my stuff together',
                     todos: [
-                        { txt: 'Driving license', doneAt: null },
-                        { txt: 'Coding power', doneAt: 187111111 }
+                        { txt: 'Driving license', doneAt: null ,isChecked:''},
+                        { txt: 'Coding power', doneAt: 187111111 ,isChecked:'' },
+                        { txt: 'Coding css', doneAt: 1845511 ,isChecked:''}
                     ]
-                }
+                },
+               
             }
         ]
         console.log(notes);
