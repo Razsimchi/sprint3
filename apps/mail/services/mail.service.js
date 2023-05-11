@@ -16,13 +16,34 @@ export const mailService = {
     remove,
     getEmptyMail,
     save,
-    getDefaultCriteria
+    getDefaultCriteria,
+    put
 }
 
-function query() {
+function query(critera) {
     return storageService.query(MAIL_KEY)
-        .then(cars => {
-            return cars
+        .then(mails => {
+            if (critera.txt) {
+                const regExp = new RegExp(critera.txt, 'i')
+                mails = mails.filter(mail => regExp.test(mail.subject))
+            }
+            if (critera.status === 'sent') {
+                mails = mails.filter(mail => mail.from === loggedinUser.email)
+            }
+            if (critera.status === 'trash') {
+                mails = mails.filter(mail => mail.removedAt)
+            }
+            console.log(mails);
+            if (critera.status === 'inbox') {
+                mails = mails.filter(mail => mail.to === loggedinUser.email)
+                if (critera.isRead) {
+                    mails = mails.filter(mail=> mail.isRead)
+                }
+                else if (!critera.isRead && critera.isRead!==null ){
+                    mails = mails.filter(mail=> !mail.isRead)
+                }
+            }
+            return mails
         })
 }
 function remove(mailId) {
@@ -31,11 +52,15 @@ function remove(mailId) {
 function get(mailId) {
     return storageService.get(MAIL_KEY, mailId)
 }
+
+function put(mail){
+    return storageService.put(MAIL_KEY, mail)
+}
 function getNextMailId(mailId) {
     return storageService.query(MAIL_KEY)
         .then((mails) => {
             let mailIdx = mails.findIndex(mail => mail.id === mailId)
-            if(mailIdx === mails.length - 1) mailIdx = -1
+            if (mailIdx === mails.length - 1) mailIdx = -1
             return mails[mailIdx + 1].id
         })
 }
@@ -43,11 +68,11 @@ function getPrevMailId(mailId) {
     return storageService.query(MAIL_KEY)
         .then((mails) => {
             let mailIdx = mails.findIndex(mail => mail.id === mailId)
-            if(mailIdx === 0) mailIdx = mails.length
+            if (mailIdx === 0) mailIdx = mails.length
             return mails[mailIdx - 1].id
         })
 }
-function getEmptyMail(){
+function getEmptyMail() {
     return {
         id: utilService.makeId(),
         subject: '',
@@ -55,19 +80,19 @@ function getEmptyMail(){
         isRead: false,
         sentAt: Date.now(),
         removedAt: null,
-        from: 'user@appsus.com',
+        from: loggedinUser.email,
         to: ''
     }
 }
 function save(mail) {
-        return storageService.post(MAIL_KEY, mail)
+    return storageService.post(MAIL_KEY, mail)
 }
-function getDefaultCriteria(){
+function getDefaultCriteria() {
     return {
-        status: '',
-         txt: '',
-         isRead: null,
-         isStared: null 
+        status: 'inbox',
+        txt: '',
+        isRead: null,
+        isStared: null
     }
 }
 
@@ -83,7 +108,7 @@ function _createMails() {
                 sentAt: 1652268578000,
                 removedAt: null,
                 from: 'jane@example.com',
-                to: 'user@appsus.com'
+                to: loggedinUser.email
             },
             {
                 id: utilService.makeId(),
@@ -93,7 +118,7 @@ function _createMails() {
                 sentAt: 1652193278000,
                 removedAt: null,
                 from: 'admin@example.com',
-                to: 'user@appsus.com'
+                to: loggedinUser.email
             },
             {
                 id: utilService.makeId(),
@@ -103,7 +128,7 @@ function _createMails() {
                 sentAt: 1652117978000,
                 removedAt: null,
                 from: 'family@example.com',
-                to: 'user@appsus.com'
+                to: loggedinUser.email
             },
             {
                 id: utilService.makeId(),
@@ -113,7 +138,7 @@ function _createMails() {
                 sentAt: 1652032678000,
                 removedAt: null,
                 from: 'billing@example.com',
-                to: 'user@appsus.com'
+                to: loggedinUser.email
             },
             {
                 id: utilService.makeId(),
@@ -123,7 +148,7 @@ function _createMails() {
                 sentAt: 1651947278000,
                 removedAt: null,
                 from: 'friend@example.com',
-                to: 'user@appsus.com'
+                to: loggedinUser.email
             },
             {
                 id: utilService.makeId(),
@@ -133,7 +158,7 @@ function _createMails() {
                 sentAt: 1651861878000,
                 removedAt: null,
                 from: 'concerts@example.com',
-                to: 'user@appsus.com'
+                to: loggedinUser.email
             },
             {
                 id: utilService.makeId(),
@@ -143,7 +168,7 @@ function _createMails() {
                 sentAt: 1651776478000,
                 removedAt: null,
                 from: 'friend@example.com',
-                to: 'user@appsus.com'
+                to: loggedinUser.email
             },
             {
                 id: utilService.makeId(),
@@ -153,7 +178,7 @@ function _createMails() {
                 sentAt: 1651691078000,
                 removedAt: null,
                 from: 'david@example.com',
-                to: 'user@appsus.com'
+                to: loggedinUser.email
             },
             {
                 id: utilService.makeId(),
@@ -163,7 +188,7 @@ function _createMails() {
                 sentAt: 1651605678000,
                 removedAt: null,
                 from: 'colleague@example.com',
-                to: 'user@appsus.com'
+                to: loggedinUser.email
             },
             {
                 id: utilService.makeId(),
@@ -173,7 +198,7 @@ function _createMails() {
                 sentAt: 1638726900000,
                 removedAt: null,
                 from: 'friend@example.com',
-                to: 'user@appsus.com'
+                to: loggedinUser.email
             }
         ]
 

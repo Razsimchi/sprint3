@@ -7,16 +7,14 @@ export function MailPreview({ mail, onRemoveMail }) {
         return utilService.getDateFormat(mail.sentAt)
 
     }
-    `/mail/${mail.id}`
     return (
 
         <tr onClick={() => navigate(`/mail/${mail.id}`)} className='mail-preview' >
-            <button onClick={(event) => {
+            <td onClick={(event) => {
                 event.stopPropagation()
                 onRemoveMail(mail.id)
-            }
-            }
-            > Delete</button>
+            }}> 
+            <img src="../../../assets/icons/icons8-trash-24.png" alt="" /></td>
 
             <td>{mail.from}</td>
             <td>{mail.subject}-{mail.body}</td>
