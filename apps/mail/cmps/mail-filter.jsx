@@ -1,9 +1,11 @@
 const { useEffect, useState } = React
+const { useParams, useNavigate, Link } = ReactRouterDOM
 
 
 export function MailFilter({onSetCritera ,critera}){
     
 const[criteraToEdit,setCriteraToEdit] = useState(critera)
+const navigate = useNavigate()
 
     useEffect(()=> {
         onSetCritera(criteraToEdit)
@@ -20,6 +22,7 @@ const[criteraToEdit,setCriteraToEdit] = useState(critera)
         // }
         const value =  target.value
         setCriteraToEdit(prevCritera => ({ ...prevCritera, [field]: value }))
+        navigate(`/mail/${value}`)
     }
     console.log(criteraToEdit)
     
