@@ -17,7 +17,7 @@ export const mailService = {
     getEmptyMail,
     save,
     getDefaultCriteria,
-    put
+    put,
 }
 
 function query(critera) {
