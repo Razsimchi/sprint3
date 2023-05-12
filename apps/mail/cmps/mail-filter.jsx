@@ -11,31 +11,24 @@ const navigate = useNavigate()
         onSetCritera(criteraToEdit)
     },[criteraToEdit])
 
-    function onSubmitFilter(ev) {
-        ev.preventDefault()
-        onSetCritera(criteraToEdit)
-    }
     function handleChange({ target }) {
         const field = target.name
-        // if (field === 'isRead') {
-        //     setCriteraToEdit(prevCritera => !prevCritera.isRead)
-        // }
         const value =  target.value
-        setCriteraToEdit(prevCritera => ({ ...prevCritera, [field]: value }))
+        if (field === 'isStared') setCriteraToEdit(prevCritera => ({ ...prevCritera, [field]: !prevCritera[field] }))
+        else setCriteraToEdit(prevCritera => ({ ...prevCritera, [field]: value }))
         navigate(`/mail`)
     }
+    
     console.log(criteraToEdit)
     
 
     return (
-        <section className = 'mail-filter ' >
-            <form onSubmit = {onSubmitFilter} ><label htmlFor="txt">Search:</label>
-                <input onChange={handleChange} name="txt" id="txt" type="search" placeholder="By Subject" /></form>
+        <section className = 'mail-filter flex justify-center align-center column ' >
+            <button title = "Inbox" className="btn btn-inbox" name ="status" value ="inbox" onClick = {handleChange}><i className="fa-solid fa-inbox"></i></button>    
+            <button title = "Sent" className="btn btn-sent" name = "status" value ="sent" onClick = {handleChange}><i className="fa-regular fa-paper-plane"></i></button>    
+            <button title = "Trash" className="btn btn-trash"  name = "status" value ="trash" onClick = {handleChange}><i className="fa-regular fa-trash-can"></i></button>   
+            <button title = "Star" className="btn btn-str"  name = "isStared" value="star" onClick = {handleChange}><i className="fa-regular fa-star"></i></button>   
 
-            <img src = "../../../assets/icons/icons8-inbox-24.png" className="btn btn-inbox" name ="status" value ="inbox" onClick = {handleChange}></img>    
-            <img src = "../../../assets/icons/icons8-sent-32.png" className="btn btn-sent" name = "status" value ="sent" onClick = {handleChange}></img>    
-            <img src = "../../../assets/icons/icons8-trash-24.png" className="btn btn-trash" name = "status" value ="trash" onClick = {handleChange}></img>   
-            {/* <button name = "isRead"  onClick = {handleChange}>Reade</button>     */}
         </section>
     )
 }

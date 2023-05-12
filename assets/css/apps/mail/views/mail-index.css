@@ -1,9 +1,40 @@
  /* mail index  */
- .mail-index {
-    height: 100vh;
-    background-color: #ebebff;
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-template-rows: 80px auto;
- }
- 
+ * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .mail-index {
+     background-color: #ebebff;
+     display: grid;
+     grid-template-columns: auto 1fr;
+  }
+  .mail-index form {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .mail-index form input{
+    height: 3.125rem;
+    border-radius: 11px;
+    border: none;
+    background-color: #cfcfee;
+  }
+  
+  .btn.btn-compose{
+    border-radius: 16px;
+    background-color: #9ef7d9;
+    height: 3.125rem;
+    width: 3.125rem;
+  }
+  .btn.btn-compose:hover{
+    box-shadow: 
+    0 1px 3px 0 rgba(60,64,67,0.302),
+    0 4px 8px 3px rgba(60,64,67,0.149);
+    background-color: #c2e7ff;
+    cursor: pointer;
+  }
+
+  .compose-container{
+    padding: 10px;
+  }

@@ -2,19 +2,24 @@
  .mail-list {
      border: none;
      border-collapse: collapse;
-     grid-row: 2;
+     border-radius: 13px;
      background-color: white;
      padding: 0.8em;
+     
  }
 
  .mail-list td {
      border: none;
-    
+ }
+
+ .mail-list td  {
+     overflow: hidden;
+     white-space: nowrap;
+     text-overflow: ellipsis;
  }
 
  .mail-list tr {
      border-bottom: 1px solid lightgray;
-     border-top: 1px solid lightgrey;
-     
+     height: 3.125rem;
+
  }
- 

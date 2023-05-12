@@ -37,6 +37,11 @@ function query(critera) {
                 mails = mails.filter(mail => mail.to === loggedinUser.email)
                 mails = mails.filter(mail => !mail.removedAt)
             }
+            console.log(critera.isStared);
+            if (critera.isStared){
+                console.log('isStared');
+                mails = mails.filter(mail => mail.isStared)
+            }
             return mails
         })
 }
@@ -72,6 +77,7 @@ function getEmptyMail() {
         subject: '',
         body: '',
         isRead: false,
+        isStared: false,
         sentAt: Date.now(),
         removedAt: null,
         from: loggedinUser.email,
@@ -86,7 +92,7 @@ function getDefaultCriteria(searchParams = { get: () => { } }) {
         status: searchParams.get('status') ||'inbox',
         txt: searchParams.get('txt') ||'',
         isRead: searchParams.get('isRead') || 'null',
-        isStared: searchParams.get('isStared') || null
+        isStared: JSON.parse(searchParams.get('isStared')) || false
     }
 }
 
@@ -99,6 +105,7 @@ function _createMails() {
                 subject: 'Hello',
                 body: 'How are you doing?',
                 isRead: false,
+                isStared: false,
                 sentAt: 1652268578000,
                 removedAt: null,
                 from: 'jane@example.com',
@@ -109,6 +116,7 @@ function _createMails() {
                 subject: 'Meeting tomorrow',
                 body: 'Just a friendly reminder that we have a meeting tomorrow at 2pm.',
                 isRead: true,
+                isStared: false,
                 sentAt: 1652193278000,
                 removedAt: null,
                 from: 'admin@example.com',
@@ -119,6 +127,7 @@ function _createMails() {
                 subject: 'Happy Birthday!',
                 body: 'Wishing you a wonderful birthday and a year filled with happiness and success!',
                 isRead: false,
+                isStared: false,
                 sentAt: 1652117978000,
                 removedAt: null,
                 from: 'family@example.com',
@@ -129,6 +138,7 @@ function _createMails() {
                 subject: 'Reminder: Payment due',
                 body: 'This is a reminder that your payment is due on the 20th of this month.',
                 isRead: true,
+                isStared: false,
                 sentAt: 1652032678000,
                 removedAt: null,
                 from: 'billing@example.com',
@@ -139,6 +149,7 @@ function _createMails() {
                 subject: 'Weekend getaway',
                 body: 'I found a great deal for a weekend getaway. Let me know if you are interested!',
                 isRead: false,
+                isStared: false,
                 sentAt: 1651947278000,
                 removedAt: null,
                 from: 'friend@example.com',
@@ -149,6 +160,7 @@ function _createMails() {
                 subject: 'Upcoming concert',
                 body: 'Don\'t forget, we have tickets to the upcoming concert on the 15th. Can\'t wait to see you there!',
                 isRead: false,
+                isStared: false,
                 sentAt: 1651861878000,
                 removedAt: null,
                 from: 'concerts@example.com',
@@ -159,6 +171,7 @@ function _createMails() {
                 subject: 'New job',
                 body: 'I wanted to share the news that I landed a new job. I start next week!',
                 isRead: true,
+                isStared: false,
                 sentAt: 1651776478000,
                 removedAt: null,
                 from: 'friend@example.com',
@@ -169,6 +182,7 @@ function _createMails() {
                 subject: 'Weekend plans',
                 body: 'I was thinking we could go hiking this weekend. What do you think?',
                 isRead: false,
+                isStared: false,
                 sentAt: 1651691078000,
                 removedAt: null,
                 from: 'david@example.com',
@@ -179,6 +193,7 @@ function _createMails() {
                 subject: 'Important news',
                 body: 'I have some important news to share with you. Can we chat later today?',
                 isRead: false,
+                isStared: false,
                 sentAt: 1651605678000,
                 removedAt: null,
                 from: 'colleague@example.com',
@@ -189,6 +204,7 @@ function _createMails() {
                 subject: 'New Job Opportunity',
                 body: 'I came across a job posting that I thought you might be interested in',
                 isRead: false,
+                isStared: false,
                 sentAt: 1638726900000,
                 removedAt: null,
                 from: 'friend@example.com',

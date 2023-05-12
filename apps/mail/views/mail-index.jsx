@@ -32,26 +32,55 @@ export function MailIndex() {
         })
     }
 
-
+    function onStarOrMail(mailId, key) {
+        mailService.get(mailId).then((mail) => {
+            mail[key] = !mail[key]
+            mailService.put(mail)
+                .then(() => {
+                    const updatedMails = mails.map(mail =>{
+                        if (mail.id === mailId) mail[key] = !mail[key]
+                        return mail
+                    })
+                    setMails(updatedMails)
+                     
+                })
+        })
+    }
+    
     function loadMails() {
         mailService.query(critera).then(setMails)
     }
     function onSetCritera(critera) {
         setCritera(prevCritera => ({ ...prevCritera, ...critera }))
     }
-
+    function handleChange({ target }) {
+        const field = target.name
+        const value = target.value
+        setCritera(prevCritera => ({ ...prevCritera, [field]: value }))
+        navigate(`/mail`)
+    }
+    function onSubmitFilter(ev) {
+        ev.preventDefault()
+        onSetCritera(critera)
+    }
 
     return (
-        <div className = "mail-index">
-            <div className="mail-status-filter">
-            <img className="btn" src="../../../assets/icons/icons8-edit-file-24.png" onClick={toggleIsNewMsg}/>
-                <MailFilter onSetCritera={onSetCritera} critera={critera} />
 
+
+        <div className="mail-index">
+            <form className="flex align-center" onSubmit={onSubmitFilter} >
+                <input onChange={handleChange} name="txt" id="txt" type="search" placeholder=" By Subject" /></form>
+            <div className="compose-container flex justify-center">
+                <button title="New mail" className="btn btn-compose" onClick={toggleIsNewMsg}><i class="fa-solid fa-pencil fa-xl"></i></button>
+            </div>
+            <div className="mail-status-filter ">
+                <MailFilter onSetCritera={onSetCritera} critera={critera} />
             </div>
 
-            <MailList mails={mails} onRemoveMail={onRemoveMail} />
+            <MailList mails={mails} onStarOrMail={onStarOrMail} onRemoveMail={onRemoveMail} />
             {isNewMsg && <MailCompose toggleIsNewMsg={toggleIsNewMsg} />}
         </div>
+
     )
 }
 
