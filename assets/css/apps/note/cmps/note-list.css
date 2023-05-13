@@ -1,21 +1,177 @@
  /* note list */
 
 .note-list{
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 40px;
+    grid-template-columns: 250px 250px 250px;
+    gap: 10px;
 }
+.hidden {
+    display: none;
+  }
 
-.note-list>li{
+.note-list>article{
     border: solid #c6bfbf;
     border-radius: 20px;
     text-align: center;
-    padding: 15px;
+    padding: 8px;
+    height: fit-content;
 }
 
 .note-todos-list{
     text-align: end;
 }
 .note-todos img{
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
 }
+
+.note-index h2{
+    margin-bottom: 15px;
+}
+
+.icon{
+    /* width: 24px;
+    height: 24px; */
+    align-items: center;
+    justify-content: space-between;
+    opacity: 0;
+}
+
+
+.note-index article :hover.icon{
+    opacity: 1;
+}
+
+/* .note-add{
+    justify-content: center;
+}
+
+.note-add form{
+    width: 60%;
+}
+
+.note-add input{
+    width: 100%;
+    height: 30%;
+    border-radius: 5px;
+} */
+
+.note-add {
+    
+    background-color: #f9f9f9;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .note-add-input-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .note-add-input {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    font-size: 16px;
+    outline: none;
+  }
+  
+  .note-add-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  .note-add-icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .note-add-submit {
+    background-color: #5f6368;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .note-add-submit:hover {
+    background-color: #4b4f52;
+  }
+  
+  .note-add-input:focus {
+    border-bottom: 2px solid #5f6368;
+  }
+  
+  .note-add-button:focus {
+    outline: none;
+  }
+  
+  .note-add-input::placeholder {
+    color: #999;
+  }
+  
+  .note-add-input::-webkit-input-placeholder {
+    color: #999;
+  }
+  
+  .note-add-input::-moz-placeholder {
+    color: #999;
+  }
+  
+  .note-add-input:-ms-input-placeholder {
+    color: #999;
+  }
+  
+  .note-add-input:-moz-placeholder {
+    color: #999;
+  }
+    
+
+/**/
+
+.note-add-todos {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+  
+  .note-add-title {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+  }
+  
+  .note-todos {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+  
+.note-todos li {
+    margin-bottom: 8px;
+}
+
+.note-todos label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.note-add-input {
+    padding: 8px;
+    border: 1
+}  
+
+
+/**/
+
+    

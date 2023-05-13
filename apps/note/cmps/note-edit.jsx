@@ -1,13 +1,13 @@
 import { noteService } from "../services/note.service.js"
 import { NoteImg } from "./note-img.jsx"
 import { NoteTodos } from "./note-todos.jsx"
+import { NoteTxt } from "./note-txt.jsx"
 
 const { useEffect, useState, useRef } = React
 const { useParams, useNavigate } = ReactRouterDOM
 
 
 export function NoteEdit() {
-
     const [noteToEdit, setNoteToEdit] = useState(noteService.getEmptyNote())
     const inputRef = useRef()
     const navigate = useNavigate()
@@ -35,6 +35,7 @@ export function NoteEdit() {
 
     function onSaveNote(ev) {
         ev.preventDefault()
+        console.log(noteToEdit);
         noteService.save(noteToEdit)
             .then(() => {
                 setNoteToEdit(noteToEdit)
@@ -45,35 +46,35 @@ export function NoteEdit() {
             })
     }
 
+    console.log(noteToEdit);
     const { info, type } = noteToEdit
     const { txt, title, url, todos } = info
-
     if (type === 'NoteTxt') {
-
         return (
-            <section className="note-edit">
-                <h2>{noteToEdit.id ? 'Edit' : 'Add'} note</h2>
+            <section className="note-edit" >
+                <NoteTxt note={noteToEdit} />
+                <button onClick={onSaveNote}>{noteToEdit.id ? 'Save' : 'Add'}</button>
+            </section>
+        )
 
-                <form onSubmit={onSaveNote} >
-                    <label htmlFor="txt"></label>
-                    <input ref={inputRef} onChange={handleChange} value={txt} type="text" name="txt" id="txt" />
-                    <button>{noteToEdit.id ? 'Save' : 'Add'}</button>
-                </form>
-
+    }
+    if (type === 'NoteImg') {
+        return (
+            <section className="note-edit" >
+                <NoteImg note={noteToEdit} />
+                <button onClick={onSaveNote}>{noteToEdit.id ? 'Save' : 'Add'}</button>
             </section>
         )
     }
-    if (type === 'NoteImg') {
-        console.log(noteToEdit);
-        return <NoteImg noteToEdit={noteToEdit} />
-    }
     if (type === 'NoteTodos') {
 
-        return <NoteTodos noteToEdit={noteToEdit} />
-
+        return (
+            <section className="note-edit" >
+                <NoteTodos note={noteToEdit} />
+                <button onClick={onSaveNote} >{noteToEdit.id ? 'Save' : 'Add'}</button>
+            </section>
+        )
     }
-
-
 }
 
 

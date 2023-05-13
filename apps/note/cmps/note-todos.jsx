@@ -1,59 +1,66 @@
 import { noteService } from "../services/note.service.js"
 const { useState } = React
 
-export function NoteTodos({ note, onRemoveNote }) {
-    const { info } = note
-    const [isEditable, setIsEditable] = useState(false)
-    const [isChecked, setIsChecked] = useState(info.todos.map((todo) => todo.isChecked))
-    const { todos } = info
+export function NoteTodos({ note }) {
+  const { info } = note
+  const [isEditable, setIsEditable] = useState(true)
+  const [todos, setTodos] = useState(info.todos)
+  const [isChecked, setIsChecked] = useState(info.todos.map((todo) => todo.isChecked))
+  const [isCellEditable, setIsCellEditable] = useState(info.todos.map(() => false))
 
-    function handleContentChange(ev) {
-        note.info.title = ev.target.textContent
-        noteService.save(note)
-    }
+  function handleContentChange(ev, idx) {
+    const updatedTodos = [...todos]
+    if (idx === undefined) info.title = ev.target.textContent
+    else updatedTodos[idx].txt = ev.target.textContent
+    setTodos(updatedTodos)
+    noteService.save(note)
+  }
 
-    function onEditNote() {
-        setIsEditable(!isEditable)
-    }
+  function handleCheckboxChange(ev, idx) {
+    const updatedChecked = [...isChecked]
+    updatedChecked[idx] = ev.target.checked
+    setIsChecked(updatedChecked)
+    const updatedTodos = [...todos]
+    updatedTodos[idx].isChecked = ev.target.checked
+    setTodos(updatedTodos)
+    noteService.save(note)
+  }
 
-    function handleCheckboxChange(idx) {
-        setIsChecked((prevChecked) => {
-            const updatedChecked = [...prevChecked]
-            updatedChecked[idx] = !updatedChecked[idx]
-            return updatedChecked
-        })
-        todos[idx].isChecked = !todos[idx].isChecked
-        console.log(note);
-        noteService.save(note)
-    }
+  function handleTodoClick(idx) {
+    const updatedEditable = [...isCellEditable]
+    updatedEditable[idx] = true
+    setIsCellEditable(updatedEditable)
+  }
 
-    return (
-        <li className="flex column space-between" key={note.id}>
-
-            <article className="note-todos">
-                <h2 contentEditable={isEditable} onBlur={handleContentChange}>
-                    {info.title}
-                </h2>
-                <ul className="note-todos-list">
-                    <label htmlFor="todos"></label>
-                    {todos.map((todo, idx) => (
-                        <li
-                            id="todos"
-                            style={{ textDecoration: isChecked[idx] ? 'line-through' : 'none' }}
-                            onChange={() => handleCheckboxChange(idx)}
-                            key={idx}
-                        >
-                            {todo.txt}
-                            <input type="checkbox" value={todo.txt} />
-                        </li>
-                    ))}
-                </ul>
-            <div onClick={() => onRemoveNote(note.id)} >
-                <img src="../assets/icons/icons8-trash-24.png" />
-            </div>
-            </article>
-        </li>
-
-    )
+  return (
+    <li>
+      <article className="note-todos">
+        <h2 contentEditable={isEditable} onBlur={handleContentChange} suppressContentEditableWarning>
+          {info.title}
+        </h2>
+        <ul className="note-todos-list">
+          {todos.map((todo, idx) => (
+            <li key={idx}>
+              <span
+                onClick={() => handleTodoClick(idx)}
+                contentEditable={isCellEditable[idx]}
+                onBlur={(ev) => handleContentChange(ev, idx)}
+                suppressContentEditableWarning
+                style={{ textDecoration: todo.isChecked ? 'line-through' : 'none' }}
+              >
+                {todo.txt}
+              </span>
+              <input
+                type="checkbox"
+                checked={todo.isChecked}
+                onChange={(ev) => handleCheckboxChange(ev, idx)}
+              />
+            </li>
+          ))}
+        </ul>
+      </article>
+    </li>
+  )
 }
+
 

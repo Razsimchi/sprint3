@@ -9,6 +9,7 @@ export const noteService = {
     remove,
     save,
     getEmptyNote,
+    addLine,
     // getDefaultFilter,
     // getNextnoteId
 }
@@ -22,49 +23,49 @@ function query() {
         .then(notes => {
             return notes
         })
-    }
-    
-    function _createNotes() {
-        let notes = utilService.loadFromStorage(NOTE_KEY)
-        if (!notes || !notes.length) {
-            notes = [
-                {
-                    id: utilService.makeId(),
-                    createdAt: 1112222,
-                    type: 'NoteTxt',
-                    isPinned: true,
-                    style: {
-                        backgroundColor: '#DD5C5C'
-                    },
-                    info: {
-                        txt: 'Fullstack Me Baby!'
-                    }
+}
+
+function _createNotes() {
+    let notes = utilService.loadFromStorage(NOTE_KEY)
+    if (!notes || !notes.length) {
+        notes = [
+            {
+                id: utilService.makeId(),
+                createdAt: 1112222,
+                type: 'NoteTxt',
+                isPinned: true,
+                style: {
+                    backgroundColor: '#DD5C5C'
                 },
-                {
-                    id: utilService.makeId(),
-                    type: 'NoteImg',
-                    isPinned: false,
-                    info: {
-                        url: './assets/img/honda.jpg',
-                        title: 'Bobi and Me'
-                    },
-                    style: {
-                        backgroundColor: '#00d'
-                    }
+                info: {
+                    title: 'Fullstack Me Baby!'
+                }
+            },
+            {
+                id: utilService.makeId(),
+                type: 'NoteImg',
+                isPinned: false,
+                info: {
+                    url: './assets/img/honda.jpg',
+                    title: 'Bobi and Me'
                 },
-                {
-                    id: utilService.makeId(),
+                style: {
+                    backgroundColor: '#00d'
+                }
+            },
+            {
+                id: utilService.makeId(),
                 type: 'NoteTodos',
                 isPinned: false,
                 info: {
                     title: 'Get my stuff together',
                     todos: [
-                        { txt: 'Driving license', doneAt: null ,isChecked:''},
-                        { txt: 'Coding power', doneAt: 187111111 ,isChecked:'' },
-                        { txt: 'Coding css', doneAt: 1845511 ,isChecked:''}
+                        { txt: 'Driving license', doneAt: null, isChecked: false },
+                        { txt: 'Coding power', doneAt: 187111111, isChecked:false },
+                        { txt: 'Coding css', doneAt: 1845511, isChecked:false }
                     ]
                 },
-               
+
             }
         ]
         console.log(notes);
@@ -73,15 +74,28 @@ function query() {
     return notes
 }
 
-
-// function _createNote() {
-//     const note = getEmptyNote()
-//     note.id = utilService.makeId()
-//     return note
-// }
-
-function getEmptyNote(txt='') {
-    return{id:'', info:{txt},type:'NoteTxt'}
+function getEmptyNote(title = '',type='NoteTxt') {
+    return (
+        {
+            id: '',
+            createdAt: 1112222,
+            type,
+            isPinned: false,
+            style: {
+                backgroundColor: ''
+            },
+            info: {
+                title,
+                todos: [
+                    { txt: '', doneAt: null, isChecked: '' },
+                ]
+            }
+        }
+    )
+}
+function addLine(){
+    let notes = utilService.loadFromStorage(NOTE_KEY)
+    notes.info.todos.push({ txt: '', doneAt: null, isChecked: '' })
 }
 
 function save(note) {
