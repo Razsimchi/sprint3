@@ -33,7 +33,6 @@ export function MailCompose({ toggleIsNewMsg }) {
             })
             .catch(err => {
                 console.log('Had issued in Mail sending:', err);
-                // showErrorMsg('Can not save car!')
             })
 
     }

@@ -37,9 +37,8 @@ function query(critera) {
                 mails = mails.filter(mail => mail.to === loggedinUser.email)
                 mails = mails.filter(mail => !mail.removedAt)
             }
-            console.log(critera.isStared);
+            
             if (critera.isStared){
-                console.log('isStared');
                 mails = mails.filter(mail => mail.isStared)
             }
             return mails
