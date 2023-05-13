@@ -32,7 +32,7 @@
         grid-column: 1;
     }
 
-    .mail-index form input {
+    .mail-index form input#text {
         left: 0;
         top: 50%;
         translate: 0 -32%;
