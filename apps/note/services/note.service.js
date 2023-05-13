@@ -46,12 +46,26 @@ function _createNotes() {
                 type: 'NoteImg',
                 isPinned: false,
                 info: {
-                    url: './assets/img/honda.jpg',
+                    url: './assets/img/audi.jpg',
                     title: 'Bobi and Me'
                 },
                 style: {
                     backgroundColor: '#00d'
                 }
+            },
+            {
+                id: utilService.makeId(),
+                type: 'NoteTodos',
+                isPinned: false,
+                info: {
+                    title: 'Prty list',
+                    todos: [
+                        { txt: 'Bay balloons', doneAt: null, isChecked: false },
+                        { txt: 'To make a cake', doneAt: 187111111, isChecked:false },
+                        { txt: 'Buy a gift', doneAt: 1845511, isChecked:false }
+                    ]
+                },
+
             },
             {
                 id: utilService.makeId(),
@@ -64,8 +78,36 @@ function _createNotes() {
                         { txt: 'Coding power', doneAt: 187111111, isChecked:false },
                         { txt: 'Coding css', doneAt: 1845511, isChecked:false }
                     ]
-                },
 
+                },
+                style: {
+                    backgroundColor: '#00d'
+                }
+
+            },
+            {
+                id: utilService.makeId(),
+                createdAt: 1112222,
+                type: 'NoteTxt',
+                isPinned: true,
+                style: {
+                    backgroundColor: '#dd5cdd'
+                },
+                info: {
+                    title: 'CSS Me Baby!'
+                }
+            },
+            {
+                id: utilService.makeId(),
+                createdAt: 1112222,
+                type: 'NoteTxt',
+                isPinned: true,
+                style: {
+                    backgroundColor: '#5cdd7a'
+                },
+                info: {
+                    title: 'JS Me Baby!'
+                }
             }
         ]
         console.log(notes);
