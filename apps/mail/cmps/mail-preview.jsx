@@ -1,5 +1,6 @@
 const { useNavigate } = ReactRouterDOM
 import { utilService } from "../../../services/util.service.js"
+import { LongTxt } from "./long-txt.jsx"
 export function MailPreview({ mail, onRemoveMail, onStarOrMail }) {
     const navigate = useNavigate()
     const bgc = mail.isRead ? 'read' : ''
@@ -30,7 +31,7 @@ export function MailPreview({ mail, onRemoveMail, onStarOrMail }) {
                 <button className="btn">{(mail.isStared) ? <i className="fa-solid fa-star" style={{ color: "#fbff00" }}></i>
                     : <i className="fa-regular fa-star"></i>}</button></td>
             <td className="from">{getUsernameFromEmail(mail.from)}</td>
-            <td>{mail.subject}-{mail.body}</td>
+            <td>{mail.subject}-{<LongTxt txt={mail.body} />}</td>
             <td className="date">{getDate()}</td>
             <td className="preview-icon" ><i onClick={(event) => {
                 event.stopPropagation()

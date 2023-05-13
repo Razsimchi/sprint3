@@ -1,5 +1,6 @@
 import { mailService } from "../services/mail.service.js"
 
+
 const { useEffect, useState, useRef } = React
 const { useNavigate } = ReactRouterDOM
 
@@ -38,16 +39,14 @@ export function MailCompose({ toggleIsNewMsg }) {
     }
 
     return (
-        <form onSubmit={onSendMail}>
+        <form className="mail-compose flex column" onSubmit={onSendMail}>
             <h2>New Message</h2>
-            <label htmlFor="to">To:</label>
-            <input ref={inputRef} onChange={handleChange} type="text" name="to" id="to" />
+            
+            <input ref={inputRef} placeholder="To:" onChange={handleChange} type="text" name="to" id="to" />
 
-            <label htmlFor="subject">Subject:</label>
-            <input onChange={handleChange} type="text" name="subject" id="subject" />
+            <input onChange={handleChange} placeholder="Subject:" type="text" name="subject" id="subject" />
 
-            <label htmlFor="body">Body:</label>
-            <input onChange={handleChange} type="text" name="body" id="body" />
+            <input onChange={handleChange} placeholder="Body:" type="text" name="body" id="body" />
 
             <button>Send</button>
 

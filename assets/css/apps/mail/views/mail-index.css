@@ -34,7 +34,16 @@
     background-color: #c2e7ff;
     cursor: pointer;
   }
-
   .compose-container{
     padding: 10px;
+  }
+  .hamburger-btn{
+    display: none ;
+    right: 10px;
+    translate: 0 50%;
+    position: absolute;
+    border: none;
+  }
+  .menu-screen{
+    display: none;
   }

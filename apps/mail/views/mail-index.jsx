@@ -12,6 +12,7 @@ export function MailIndex() {
     const [critera, setCritera] = useState(mailService.getDefaultCriteria(searchParams))
     const [mails, setMails] = useState([])
     const [isNewMsg, setIsNewMsg] = useState(false)
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
 
     useEffect(() => {
         loadMails()
@@ -37,16 +38,16 @@ export function MailIndex() {
             mail[key] = !mail[key]
             mailService.put(mail)
                 .then(() => {
-                    const updatedMails = mails.map(mail =>{
+                    const updatedMails = mails.map(mail => {
                         if (mail.id === mailId) mail[key] = !mail[key]
                         return mail
                     })
                     setMails(updatedMails)
-                     
+
                 })
         })
     }
-    
+
     function loadMails() {
         mailService.query(critera).then(setMails)
     }
@@ -63,24 +64,29 @@ export function MailIndex() {
         ev.preventDefault()
         onSetCritera(critera)
     }
-
+    function onMenu() {
+        setIsMenuOpen(prevIsMenuOpen => !prevIsMenuOpen)
+    }
+    const menuState = isMenuOpen ? 'menu-open' : ''
     return (
 
+        <React.Fragment>
+            <div onClick={onMenu} className={`menu-screen ${menuState}`}></div>
+            <div className="mail-index">
+                <form className="flex align-center" onSubmit={onSubmitFilter} >
+                    <input onChange={handleChange} name="txt" id="txt" type="search" placeholder=" By Subject" /></form>
+                <button onClick={onMenu} className="hamburger-btn"><i class=" fa-solid fa-bars fa-2xl"></i></button>
+                <div className="compose-container flex justify-center">
+                    <button title="New mail" className="btn btn-compose" onClick={toggleIsNewMsg}><i class="fa-solid fa-pencil fa-xl"></i></button>
+                </div>
+                <div className={`mail-status-filter ${menuState} `}>
+                    <MailFilter onSetCritera={onSetCritera} critera={critera} />
+                </div>
 
-        <div className="mail-index">
-            <form className="flex align-center" onSubmit={onSubmitFilter} >
-                <input onChange={handleChange} name="txt" id="txt" type="search" placeholder=" By Subject" /></form>
-            <div className="compose-container flex justify-center">
-                <button title="New mail" className="btn btn-compose" onClick={toggleIsNewMsg}><i class="fa-solid fa-pencil fa-xl"></i></button>
+                <MailList mails={mails} onStarOrMail={onStarOrMail} onRemoveMail={onRemoveMail} />
+                {isNewMsg && <MailCompose toggleIsNewMsg={toggleIsNewMsg} />}
             </div>
-            <div className="mail-status-filter ">
-                <MailFilter onSetCritera={onSetCritera} critera={critera} />
-            </div>
-
-            <MailList mails={mails} onStarOrMail={onStarOrMail} onRemoveMail={onRemoveMail} />
-            {isNewMsg && <MailCompose toggleIsNewMsg={toggleIsNewMsg} />}
-        </div>
-
+        </React.Fragment>
     )
 }
 

@@ -12,12 +12,6 @@
      border: none;
  }
 
- .mail-list td  {
-     overflow: hidden;
-     white-space: nowrap;
-     text-overflow: ellipsis;
- }
-
  .mail-list tr {
      border-bottom: 1px solid lightgray;
      height: 3.125rem;

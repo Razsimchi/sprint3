@@ -1,0 +1,13 @@
+     form.mail-compose {
+        position: absolute;
+        bottom: 0;
+        left: 70px;
+        width: 21.875rem;
+        height: 21.125rem;
+        justify-content: space-evenly;
+        background-color: white;
+        padding: 0.9375rem;
+    }
+    form.mail-compose input{
+        background-color: white;
+    }

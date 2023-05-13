@@ -37,15 +37,16 @@ export function MailDetails() {
     
     if (!mail) return <div>loading...</div>
     return (
-        <section className="mail-details">
+        <section className="mail-details flex column">
             <h4>From: {mail.from}</h4>
             <h4>To: {mail.to}</h4>
             <h3>{mail.subject}</h3>
             <p>{mail.body}</p>
-            <Link to = {`/mail`}>Back</Link>
-            <Link to = {`/mail/${nextMailId}`}>{'>'}</Link>
-            <Link to = {`/mail/${prevMailId}`}>{'<'}</Link>
-           
+            <div className="btns-container flex">
+            <Link to = {`/mail`}><i class="fa-solid fa-rotate-right"></i></Link>
+            <Link to = {`/mail/${prevMailId}`}><i class="fa-solid fa-chevron-left"></i></Link>
+            <Link to = {`/mail/${nextMailId}`}><i class="fa-solid fa-chevron-right"></i></Link>
+            </div>
         </section>
     )
 }

@@ -1,0 +1,75 @@
+@media (max-width: 650px) {
+    .mail-index {
+        background-color: #ebebff;
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .mail-status-filter {
+        position: fixed;
+        height: 100vh;
+        background-color: rgb(198 188 188 / 95%);
+        width: 95px;
+        right: 0;
+        translate: 100%;
+        transition: translate 0.6ms;
+    }
+    .mail-filter .btn{
+        border-block-end: lightgray 2px solid;
+        width: 100%;
+        padding-block-end: 40px;
+        
+    }
+
+    .btn-compose {
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        z-index: 3;
+    }
+
+    .mail-index form {
+        grid-column: 1;
+    }
+
+    .mail-index form input {
+        left: 0;
+        top: 50%;
+        translate: 0 -32%;
+        position: relative;
+        width: 20rem;
+    }
+
+    .hamburger-btn {
+        display: inline;
+        padding: 10px;
+    }
+
+    .hamburger-btn:hover {
+        background-color: gray;
+        cursor: pointer;
+
+    }
+    .menu-open{
+        translate: 0%;
+        z-index: 3;
+        
+    }
+    .menu-screen{
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: rgb(0 0 0 / 50%);
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.6ms;
+        pointer-events: none;
+    }
+    .menu-open.menu-screen{
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
