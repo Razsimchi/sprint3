@@ -82,7 +82,7 @@ export function MailIndex() {
                 <div className={`mail-status-filter ${menuState} `}>
                     <MailFilter onSetCritera={onSetCritera} critera={critera} />
                 </div>
-
+                
                 <MailList mails={mails} onStarOrMail={onStarOrMail} onRemoveMail={onRemoveMail} />
                 {isNewMsg && <MailCompose toggleIsNewMsg={toggleIsNewMsg} />}
             </div>
